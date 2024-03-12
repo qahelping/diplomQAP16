@@ -43,10 +43,12 @@ class BasePage:
     def open(self, url):
         self.driver.get(url)
 
+    @allure.step("Fill input {locator} {text}")
     def fill(self, locator, text):
         element = self.wait_for(locator)
         element.send_keys(text)
 
+    @allure.step("Press enter")
     def press_enter(self):
         actions = ActionChains(self.driver)
         actions.send_keys(Keys.ENTER)
@@ -54,4 +56,5 @@ class BasePage:
     @allure.step("Assert text is visible")
     def assert_text(self, text):
         assert self.wait_for(f'//*[contains(text(), "{text}")]'), "Text is not visible"
+
 
